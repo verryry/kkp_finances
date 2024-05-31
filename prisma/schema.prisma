@@ -1,0 +1,115 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/client"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  username  String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Jabatan {
+  id                Int        @id @default(autoincrement())
+  nama_jabatan      String
+  tunjangan_jabatan Int
+  createdAt         DateTime   @default(now())
+  updatedAt         DateTime   @updatedAt
+  Gaji              Gaji[]
+  Karyawan          Karyawan[]
+}
+
+model Lembur {
+  id          Int      @id @default(autoincrement())
+  karyawan    Karyawan @relation(fields: [id_karyawan], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  id_karyawan Int
+  bulan       String?
+  tahun       String?
+  hari        Int
+  jumlah_jam  Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Karyawan {
+  id            Int        @id @default(autoincrement())
+  jabatan       Jabatan    @relation(fields: [id_jabatan], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  id_jabatan    Int
+  nama_karyawan String
+  jenis_kelamin String
+  tgl_lahir     DateTime
+  alamat        String
+  agama         String
+  no_telp       String
+  email         String
+  department    String
+  gaji_pokok    Int
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+  Potongan      Potongan[]
+  Absensi       Absensi[]
+  Gaji          Gaji[]
+  Lembur        Lembur[]
+}
+
+model Potongan {
+  id          Int      @id @default(autoincrement())
+  karyawan    Karyawan @relation(fields: [id_karyawan], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  id_karyawan Int
+  bulan       String
+  tahun       String
+  nominal     Int
+  keterangan  String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Absensi {
+  id          Int       @id @default(autoincrement())
+  karyawan    Karyawan  @relation(fields: [id_karyawan], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  id_karyawan Int
+  tgl         DateTime?
+  bulan       String?
+  tahun       String?
+  masuk       DateTime?
+  alfa        String?
+  sakit       String?
+  cuti        String?
+  shif        String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Gaji {
+  id                  Int      @id @default(autoincrement())
+  karyawan            Karyawan @relation(fields: [id_karyawan], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  id_karyawan         Int
+  jabatan             Jabatan  @relation(fields: [id_jabatan], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  id_jabatan          Int
+  department          String
+  bulan               String
+  tahun               String
+  gaji                Int
+  gaji_kotor          Int
+  gaji_bersih         Int
+  uang_lembur         Int
+  uang_shift          Int
+  bonus               Int
+  tunjangan           Int
+  tunjangan_ramadhan  Int
+  potongan_bpjs       Int
+  potongan_pph21      Int
+  potongan_no_working Int
+  potongan_lain       Int
+  keterangan          String
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+}
