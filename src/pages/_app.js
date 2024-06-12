@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import MainLayout from "@/layouts/MainLayout";
 import { Inter } from "next/font/google";
 import { Toaster } from "sonner";
+import { AutoLogoutProvider } from "@/providers/AutoLogout";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,15 +18,17 @@ export default function App({
     <main className={inter.className}>
       <SessionProvider session={session}>
         <QueryClientProvider client={queryClient}>
-          <MainLayout>
-            <Component {...pageProps} />
-            <Toaster
-              richColors
-              closeButton
-              position="top-center"
-              duration={10000}
-            />
-          </MainLayout>
+          <AutoLogoutProvider>
+            <MainLayout>
+              <Component {...pageProps} />
+              <Toaster
+                richColors
+                closeButton
+                position="top-center"
+                duration={10000}
+              />
+            </MainLayout>
+          </AutoLogoutProvider>
         </QueryClientProvider>
       </SessionProvider>
     </main>

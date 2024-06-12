@@ -13,6 +13,16 @@ export const servicePostData = async (table, data) => {
   return create;
 };
 
+export const serviceUpdateData = async (table, columns, value, data) => {
+  const update = await prisma[table].update({
+    where: {
+      [columns]: value,
+    },
+    data,
+  });
+  return update;
+};
+
 export const serviceGetDataByColumns = async (table, columns, value) => {
   const data = await prisma[table].findUnique({
     where: {

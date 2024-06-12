@@ -1,79 +1,69 @@
 import PopupModalJabatan from "@/components/popup/jabatan/PopupModalJabatan";
 import { TableComponent } from "@/components/table/TableComponent";
 import { TableLoading } from "@/components/table/TableLoading";
-import { Button } from "@/components/ui/button";
-import { useGetJabatan } from "@/hooks/JabatanHooks";
+import { useHttpRequest } from "@/hooks/CustomHooks";
 import { useToggle } from "@/hooks/hooks";
-import { serviceGetAllData } from "@/lib/services";
-import { PlusIcon } from "lucide-react";
-import React, { useState } from "react";
+import { formatDate } from "@/lib/helper";
 import { toast } from "sonner";
 
 const columns = [
   {
     header: "Jabatan",
     accessorKey: "nama_jabatan",
+    required: true,
+    type: "string",
   },
   {
     header: "Tunjangan",
     accessorKey: "tunjangan_jabatan",
+    type: "number",
+  },
+  {
+    header: "Date",
+    accessorKey: "date",
+    cell: ({ getValue }) => <div className="">{formatDate(getValue())}</div>,
+    type: "date",
+  },
+  {
+    header: "Divisi",
+    accessorKey: "division",
+    type: "select",
+    lookup: {
+      dataSource: [
+        { label: "IT", value: "IT" },
+        { label: "HRD", value: "HRD" },
+        { label: "Finance", value: "Finance" },
+      ],
+      displayExpr: "label",
+      valueExpr: "value",
+    },
+  },
+  {
+    header: "Status",
+    accessorKey: "status",
+    type: "boolean",
   },
 ];
 
-const ToolbarComponent = ({ openPopup }) => {
-  return (
-    <Button
-      size="sm"
-      className="ml-auto hidden h-8 lg:flex"
-      onClick={openPopup}
-    >
-      <PlusIcon size={20} /> Add New
-    </Button>
-  );
-};
-
 export default function Jabatan() {
   const [openJabatan, toggleJabatan] = useToggle();
-  const { data, error, isError, isPending, isFetching } = useGetJabatan();
-  const [messageConfirm, setMessageConfirm] = useState({
-    title: "",
-    description: "",
-    data: "",
-  });
-  const [openConfirmAlert, setOpenConfirmAlert] = useState(false);
+  const { data, error, isError, isPending, isFetching } = useHttpRequest(
+    "jabatan",
+    "jabatan",
+    "GET"
+  );
 
   if (isError) {
     console.log(error);
     return toast.error(`An error has occurred ${error}`);
   }
 
-  const handlePopup = (type, confirm = false, cancel = false) => {
-    const toggleMap = {
-      jabatan: toggleJabatan,
-    };
-
-    const messageMap = {
-      jabatan: "postJabatan",
-    };
-
-    toggleMap[type]();
-    setMessageConfirm({
-      type: messageMap[type],
-    });
-
-    if (confirm) setOpenConfirmAlert(true);
-    if (cancel) toast.warning(`Cancelling Form`);
-  };
-
-  const handleData = (data) => {};
-
   const renderPopup = () => {
     if (openJabatan) {
       return (
         <PopupModalJabatan
           open={openJabatan}
-          onOpenChange={() => handlePopup("jabatan", true)}
-          cancelCallback={() => handlePopup("jabatan", false, true)}
+          onOpenChange={toggleJabatan}
           callback={(data) => handleData(data)}
         />
       );
@@ -86,14 +76,21 @@ export default function Jabatan() {
         <TableLoading columns={columns} row={3} />
       ) : (
         <TableComponent
-          columns={columns}
-          data={data}
+          // Service
+          dataSource={data}
+          allowAdding
+          allowUpdating
+          allowDeleting
+          postApi={"jabatan"}
+          putApi={"jabatan"}
+          deleteApi={"jabatan"}
+          queryKey={"jabatan"}
+          // Column Config
+          columnsConfiguration={columns}
+          //Fitur
           searchBy={"nama_jabatan"}
           pagination
           visibleColumns
-          rightToolbars={
-            <ToolbarComponent openPopup={() => handlePopup("jabatan")} />
-          }
           height={"h-[63vh]"}
           width={"w-[96vw]"}
         />

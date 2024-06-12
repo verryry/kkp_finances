@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -30,7 +31,6 @@ const formSchema = z.object({
 export default function PopupModalJabatan({
   open,
   onOpenChange,
-  cancelCallback,
   callback,
   data = {},
 }) {
@@ -107,9 +107,9 @@ export default function PopupModalJabatan({
               <Button type="submit" variant="default">
                 Save changes
               </Button>
-              <Button variant="outline" onClick={cancelCallback}>
-                Cancel
-              </Button>
+              <DialogClose asChild>
+                <Button variant="outline">Cancel</Button>
+              </DialogClose>
             </DialogFooter>
           </form>
         </Form>

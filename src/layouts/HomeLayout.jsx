@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
-import React from "react";
 
 const menu = [
   {
@@ -10,7 +9,7 @@ const menu = [
   },
   {
     name: "Karyawan",
-    href: "/",
+    href: "/karyawan",
   },
   {
     name: "Jabatan",

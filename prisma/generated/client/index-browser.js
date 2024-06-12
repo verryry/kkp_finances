@@ -132,6 +132,9 @@ exports.Prisma.JabatanScalarFieldEnum = {
   id: 'id',
   nama_jabatan: 'nama_jabatan',
   tunjangan_jabatan: 'tunjangan_jabatan',
+  division: 'division',
+  status: 'status',
+  date: 'date',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };

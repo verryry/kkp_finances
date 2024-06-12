@@ -3,6 +3,7 @@ import {
   serviceGetAllData,
   serviceGetDataByColumns,
   servicePostData,
+  serviceUpdateData,
 } from "@/lib/services";
 
 export default async function handler(req, res) {
@@ -36,6 +37,28 @@ export default async function handler(req, res) {
 
     const data = await serviceGetAllData("jabatan");
     return res.status(200).json(data);
+  }
+
+  if (req.method === "PUT") {
+    if (param) {
+      const data = await serviceGetDataByColumns(
+        "jabatan",
+        "id",
+        parseInt(param[0])
+      );
+      if (data) {
+        const body = await req.body;
+
+        const data = await serviceUpdateData(
+          "jabatan",
+          "id",
+          parseInt(param[0]),
+          body
+        );
+        return res.status(200).json(data);
+      }
+      return res.status(404).json({ error: "Jabatan not found" });
+    }
   }
 
   if (req.method === "DELETE") {

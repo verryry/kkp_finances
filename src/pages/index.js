@@ -1,6 +1,7 @@
-import { TableComponent } from "@/components/table/TableComponent";
-
 import { HeaderSorting } from "@/components/table/HeaderSorting";
+import PopupComponent from "@/components/table/PopupComponent";
+import { Button } from "@/components/ui/button";
+import { useToggle } from "@/hooks/hooks";
 
 const columnsLoginBanner = [
   {
@@ -46,5 +47,16 @@ const dummyData = [
 ];
 
 export default function Home() {
-  return <div>Dashboard</div>;
+  const [openPopup, togglePopup] = useToggle();
+
+  const handlePopup = () => {
+    togglePopup();
+  };
+  return (
+    <>
+      <div>Dashboard</div>
+      <Button onClick={handlePopup}>Button</Button>
+      <PopupComponent open={openPopup} onOpenChange={togglePopup} />
+    </>
+  );
 }

@@ -2391,6 +2391,9 @@ export namespace Prisma {
     id: number | null
     nama_jabatan: string | null
     tunjangan_jabatan: number | null
+    division: string | null
+    status: boolean | null
+    date: Date | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -2399,6 +2402,9 @@ export namespace Prisma {
     id: number | null
     nama_jabatan: string | null
     tunjangan_jabatan: number | null
+    division: string | null
+    status: boolean | null
+    date: Date | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -2407,6 +2413,9 @@ export namespace Prisma {
     id: number
     nama_jabatan: number
     tunjangan_jabatan: number
+    division: number
+    status: number
+    date: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -2427,6 +2436,9 @@ export namespace Prisma {
     id?: true
     nama_jabatan?: true
     tunjangan_jabatan?: true
+    division?: true
+    status?: true
+    date?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -2435,6 +2447,9 @@ export namespace Prisma {
     id?: true
     nama_jabatan?: true
     tunjangan_jabatan?: true
+    division?: true
+    status?: true
+    date?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -2443,6 +2458,9 @@ export namespace Prisma {
     id?: true
     nama_jabatan?: true
     tunjangan_jabatan?: true
+    division?: true
+    status?: true
+    date?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -2538,6 +2556,9 @@ export namespace Prisma {
     id: number
     nama_jabatan: string
     tunjangan_jabatan: number
+    division: string | null
+    status: boolean
+    date: Date
     createdAt: Date
     updatedAt: Date
     _count: JabatanCountAggregateOutputType | null
@@ -2565,6 +2586,9 @@ export namespace Prisma {
     id?: boolean
     nama_jabatan?: boolean
     tunjangan_jabatan?: boolean
+    division?: boolean
+    status?: boolean
+    date?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     Gaji?: boolean | Jabatan$GajiArgs<ExtArgs>
@@ -2576,6 +2600,9 @@ export namespace Prisma {
     id?: boolean
     nama_jabatan?: boolean
     tunjangan_jabatan?: boolean
+    division?: boolean
+    status?: boolean
+    date?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
@@ -2598,6 +2625,9 @@ export namespace Prisma {
       id: number
       nama_jabatan: string
       tunjangan_jabatan: number
+      division: string | null
+      status: boolean
+      date: Date
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["jabatan"]>
@@ -3000,6 +3030,9 @@ export namespace Prisma {
     readonly id: FieldRef<"Jabatan", 'Int'>
     readonly nama_jabatan: FieldRef<"Jabatan", 'String'>
     readonly tunjangan_jabatan: FieldRef<"Jabatan", 'Int'>
+    readonly division: FieldRef<"Jabatan", 'String'>
+    readonly status: FieldRef<"Jabatan", 'Boolean'>
+    readonly date: FieldRef<"Jabatan", 'DateTime'>
     readonly createdAt: FieldRef<"Jabatan", 'DateTime'>
     readonly updatedAt: FieldRef<"Jabatan", 'DateTime'>
   }
@@ -8682,6 +8715,9 @@ export namespace Prisma {
     id: 'id',
     nama_jabatan: 'nama_jabatan',
     tunjangan_jabatan: 'tunjangan_jabatan',
+    division: 'division',
+    status: 'status',
+    date: 'date',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -8824,6 +8860,13 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -8899,6 +8942,9 @@ export namespace Prisma {
     id?: IntFilter<"Jabatan"> | number
     nama_jabatan?: StringFilter<"Jabatan"> | string
     tunjangan_jabatan?: IntFilter<"Jabatan"> | number
+    division?: StringNullableFilter<"Jabatan"> | string | null
+    status?: BoolFilter<"Jabatan"> | boolean
+    date?: DateTimeFilter<"Jabatan"> | Date | string
     createdAt?: DateTimeFilter<"Jabatan"> | Date | string
     updatedAt?: DateTimeFilter<"Jabatan"> | Date | string
     Gaji?: GajiListRelationFilter
@@ -8909,6 +8955,9 @@ export namespace Prisma {
     id?: SortOrder
     nama_jabatan?: SortOrder
     tunjangan_jabatan?: SortOrder
+    division?: SortOrderInput | SortOrder
+    status?: SortOrder
+    date?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     Gaji?: GajiOrderByRelationAggregateInput
@@ -8922,6 +8971,9 @@ export namespace Prisma {
     NOT?: JabatanWhereInput | JabatanWhereInput[]
     nama_jabatan?: StringFilter<"Jabatan"> | string
     tunjangan_jabatan?: IntFilter<"Jabatan"> | number
+    division?: StringNullableFilter<"Jabatan"> | string | null
+    status?: BoolFilter<"Jabatan"> | boolean
+    date?: DateTimeFilter<"Jabatan"> | Date | string
     createdAt?: DateTimeFilter<"Jabatan"> | Date | string
     updatedAt?: DateTimeFilter<"Jabatan"> | Date | string
     Gaji?: GajiListRelationFilter
@@ -8932,6 +8984,9 @@ export namespace Prisma {
     id?: SortOrder
     nama_jabatan?: SortOrder
     tunjangan_jabatan?: SortOrder
+    division?: SortOrderInput | SortOrder
+    status?: SortOrder
+    date?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: JabatanCountOrderByAggregateInput
@@ -8948,6 +9003,9 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"Jabatan"> | number
     nama_jabatan?: StringWithAggregatesFilter<"Jabatan"> | string
     tunjangan_jabatan?: IntWithAggregatesFilter<"Jabatan"> | number
+    division?: StringNullableWithAggregatesFilter<"Jabatan"> | string | null
+    status?: BoolWithAggregatesFilter<"Jabatan"> | boolean
+    date?: DateTimeWithAggregatesFilter<"Jabatan"> | Date | string
     createdAt?: DateTimeWithAggregatesFilter<"Jabatan"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Jabatan"> | Date | string
   }
@@ -9500,6 +9558,9 @@ export namespace Prisma {
   export type JabatanCreateInput = {
     nama_jabatan: string
     tunjangan_jabatan: number
+    division?: string | null
+    status?: boolean
+    date?: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
     Gaji?: GajiCreateNestedManyWithoutJabatanInput
@@ -9510,6 +9571,9 @@ export namespace Prisma {
     id?: number
     nama_jabatan: string
     tunjangan_jabatan: number
+    division?: string | null
+    status?: boolean
+    date?: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
     Gaji?: GajiUncheckedCreateNestedManyWithoutJabatanInput
@@ -9519,6 +9583,9 @@ export namespace Prisma {
   export type JabatanUpdateInput = {
     nama_jabatan?: StringFieldUpdateOperationsInput | string
     tunjangan_jabatan?: IntFieldUpdateOperationsInput | number
+    division?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: BoolFieldUpdateOperationsInput | boolean
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Gaji?: GajiUpdateManyWithoutJabatanNestedInput
@@ -9529,6 +9596,9 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     nama_jabatan?: StringFieldUpdateOperationsInput | string
     tunjangan_jabatan?: IntFieldUpdateOperationsInput | number
+    division?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: BoolFieldUpdateOperationsInput | boolean
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Gaji?: GajiUncheckedUpdateManyWithoutJabatanNestedInput
@@ -9539,6 +9609,9 @@ export namespace Prisma {
     id?: number
     nama_jabatan: string
     tunjangan_jabatan: number
+    division?: string | null
+    status?: boolean
+    date?: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -9546,6 +9619,9 @@ export namespace Prisma {
   export type JabatanUpdateManyMutationInput = {
     nama_jabatan?: StringFieldUpdateOperationsInput | string
     tunjangan_jabatan?: IntFieldUpdateOperationsInput | number
+    division?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: BoolFieldUpdateOperationsInput | boolean
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -9554,6 +9630,9 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     nama_jabatan?: StringFieldUpdateOperationsInput | string
     tunjangan_jabatan?: IntFieldUpdateOperationsInput | number
+    division?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: BoolFieldUpdateOperationsInput | boolean
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -10210,60 +10289,6 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type GajiListRelationFilter = {
-    every?: GajiWhereInput
-    some?: GajiWhereInput
-    none?: GajiWhereInput
-  }
-
-  export type KaryawanListRelationFilter = {
-    every?: KaryawanWhereInput
-    some?: KaryawanWhereInput
-    none?: KaryawanWhereInput
-  }
-
-  export type GajiOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type KaryawanOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type JabatanCountOrderByAggregateInput = {
-    id?: SortOrder
-    nama_jabatan?: SortOrder
-    tunjangan_jabatan?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type JabatanAvgOrderByAggregateInput = {
-    id?: SortOrder
-    tunjangan_jabatan?: SortOrder
-  }
-
-  export type JabatanMaxOrderByAggregateInput = {
-    id?: SortOrder
-    nama_jabatan?: SortOrder
-    tunjangan_jabatan?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type JabatanMinOrderByAggregateInput = {
-    id?: SortOrder
-    nama_jabatan?: SortOrder
-    tunjangan_jabatan?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type JabatanSumOrderByAggregateInput = {
-    id?: SortOrder
-    tunjangan_jabatan?: SortOrder
-  }
-
   export type StringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | null
@@ -10278,14 +10303,107 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
-  export type KaryawanRelationFilter = {
-    is?: KaryawanWhereInput
-    isNot?: KaryawanWhereInput
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type GajiListRelationFilter = {
+    every?: GajiWhereInput
+    some?: GajiWhereInput
+    none?: GajiWhereInput
+  }
+
+  export type KaryawanListRelationFilter = {
+    every?: KaryawanWhereInput
+    some?: KaryawanWhereInput
+    none?: KaryawanWhereInput
   }
 
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
+  }
+
+  export type GajiOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type KaryawanOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type JabatanCountOrderByAggregateInput = {
+    id?: SortOrder
+    nama_jabatan?: SortOrder
+    tunjangan_jabatan?: SortOrder
+    division?: SortOrder
+    status?: SortOrder
+    date?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type JabatanAvgOrderByAggregateInput = {
+    id?: SortOrder
+    tunjangan_jabatan?: SortOrder
+  }
+
+  export type JabatanMaxOrderByAggregateInput = {
+    id?: SortOrder
+    nama_jabatan?: SortOrder
+    tunjangan_jabatan?: SortOrder
+    division?: SortOrder
+    status?: SortOrder
+    date?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type JabatanMinOrderByAggregateInput = {
+    id?: SortOrder
+    nama_jabatan?: SortOrder
+    tunjangan_jabatan?: SortOrder
+    division?: SortOrder
+    status?: SortOrder
+    date?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type JabatanSumOrderByAggregateInput = {
+    id?: SortOrder
+    tunjangan_jabatan?: SortOrder
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | null
+    notIn?: string[] | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type KaryawanRelationFilter = {
+    is?: KaryawanWhereInput
+    isNot?: KaryawanWhereInput
   }
 
   export type LemburCountOrderByAggregateInput = {
@@ -10333,23 +10451,6 @@ export namespace Prisma {
     id_karyawan?: SortOrder
     hari?: SortOrder
     jumlah_jam?: SortOrder
-  }
-
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | null
-    notIn?: string[] | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type JabatanRelationFilter = {
@@ -10724,6 +10825,14 @@ export namespace Prisma {
     connect?: KaryawanWhereUniqueInput | KaryawanWhereUniqueInput[]
   }
 
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
   export type GajiUpdateManyWithoutJabatanNestedInput = {
     create?: XOR<GajiCreateWithoutJabatanInput, GajiUncheckedCreateWithoutJabatanInput> | GajiCreateWithoutJabatanInput[] | GajiUncheckedCreateWithoutJabatanInput[]
     connectOrCreate?: GajiCreateOrConnectWithoutJabatanInput | GajiCreateOrConnectWithoutJabatanInput[]
@@ -10784,10 +10893,6 @@ export namespace Prisma {
     create?: XOR<KaryawanCreateWithoutLemburInput, KaryawanUncheckedCreateWithoutLemburInput>
     connectOrCreate?: KaryawanCreateOrConnectWithoutLemburInput
     connect?: KaryawanWhereUniqueInput
-  }
-
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
   }
 
   export type KaryawanUpdateOneRequiredWithoutLemburNestedInput = {
@@ -11148,6 +11253,11 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | null
@@ -11174,6 +11284,14 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
@@ -11474,6 +11592,9 @@ export namespace Prisma {
   export type JabatanCreateWithoutKaryawanInput = {
     nama_jabatan: string
     tunjangan_jabatan: number
+    division?: string | null
+    status?: boolean
+    date?: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
     Gaji?: GajiCreateNestedManyWithoutJabatanInput
@@ -11483,6 +11604,9 @@ export namespace Prisma {
     id?: number
     nama_jabatan: string
     tunjangan_jabatan: number
+    division?: string | null
+    status?: boolean
+    date?: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
     Gaji?: GajiUncheckedCreateNestedManyWithoutJabatanInput
@@ -11657,6 +11781,9 @@ export namespace Prisma {
   export type JabatanUpdateWithoutKaryawanInput = {
     nama_jabatan?: StringFieldUpdateOperationsInput | string
     tunjangan_jabatan?: IntFieldUpdateOperationsInput | number
+    division?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: BoolFieldUpdateOperationsInput | boolean
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Gaji?: GajiUpdateManyWithoutJabatanNestedInput
@@ -11666,6 +11793,9 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     nama_jabatan?: StringFieldUpdateOperationsInput | string
     tunjangan_jabatan?: IntFieldUpdateOperationsInput | number
+    division?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: BoolFieldUpdateOperationsInput | boolean
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Gaji?: GajiUncheckedUpdateManyWithoutJabatanNestedInput
@@ -12006,6 +12136,9 @@ export namespace Prisma {
   export type JabatanCreateWithoutGajiInput = {
     nama_jabatan: string
     tunjangan_jabatan: number
+    division?: string | null
+    status?: boolean
+    date?: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
     Karyawan?: KaryawanCreateNestedManyWithoutJabatanInput
@@ -12015,6 +12148,9 @@ export namespace Prisma {
     id?: number
     nama_jabatan: string
     tunjangan_jabatan: number
+    division?: string | null
+    status?: boolean
+    date?: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
     Karyawan?: KaryawanUncheckedCreateNestedManyWithoutJabatanInput
@@ -12087,6 +12223,9 @@ export namespace Prisma {
   export type JabatanUpdateWithoutGajiInput = {
     nama_jabatan?: StringFieldUpdateOperationsInput | string
     tunjangan_jabatan?: IntFieldUpdateOperationsInput | number
+    division?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: BoolFieldUpdateOperationsInput | boolean
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Karyawan?: KaryawanUpdateManyWithoutJabatanNestedInput
@@ -12096,6 +12235,9 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     nama_jabatan?: StringFieldUpdateOperationsInput | string
     tunjangan_jabatan?: IntFieldUpdateOperationsInput | number
+    division?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: BoolFieldUpdateOperationsInput | boolean
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Karyawan?: KaryawanUncheckedUpdateManyWithoutJabatanNestedInput

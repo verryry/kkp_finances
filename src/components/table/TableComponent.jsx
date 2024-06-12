@@ -35,7 +35,11 @@ import {
 } from "@tanstack/react-table";
 
 import { DataTablePagination } from "@/components/table/DataTablePagination";
+import DataTableRowActions from "@/components/table/DataTableRowActions";
+import DataTableToolbar from "@/components/table/DataTableToolbar";
 import { DataTableViewOptions } from "@/components/table/DataTableViewOptions";
+import PopupComponent from "@/components/table/PopupComponent";
+import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   Table,
@@ -45,6 +49,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { useHttpRequest } from "@/hooks/CustomHooks";
+import { useToggle } from "@/hooks/hooks";
+import { useAppStore } from "@/lib/store";
 import {
   DndContext,
   KeyboardSensor,
@@ -62,9 +69,8 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { GripVerticalIcon } from "lucide-react";
+import { GripVerticalIcon, PlusIcon } from "lucide-react";
 import { useId, useMemo, useState } from "react";
-import DataTableToolbar from "./DataTableToolbar";
 
 // Cell Component
 const RowDragHandleCell = ({ rowId }) => {
@@ -126,11 +132,18 @@ const DraggableRow = ({ row }) => {
 
 // Table Component
 export function TableComponent({
-  columns: columnsProp,
-  data: dataProp,
+  columnsConfiguration: columnsProp,
+  dataSource: dataProp,
   keyField = "id",
   searchBy,
   pagination,
+  queryKey,
+  postApi,
+  putApi,
+  deleteApi,
+  allowAdding = false,
+  allowUpdating = false,
+  allowDeleting = false,
   paginationOptions = [10, 20, 30],
   onPaginationChange,
   rowCount,
@@ -145,6 +158,9 @@ export function TableComponent({
   width = "w-[82vw]",
 }) {
   const randomId = useId();
+
+  const setColumns = useAppStore((state) => state.setColumns);
+  setColumns(columnsProp);
   const useCreateColumns = (columnsProp, rowDragnDrop, allowMultipleSelect) =>
     useMemo(() => {
       const baseColumns = [
@@ -189,11 +205,29 @@ export function TableComponent({
         size: 60,
       };
 
+      const rowActionColumn = {
+        id: "actions",
+        enableHiding: false,
+        cell: ({ row }) => {
+          return (
+            <DataTableRowActions
+              row={row}
+              putApi={putApi}
+              deleteApi={deleteApi}
+              allowUpdating={allowUpdating}
+              allowDeleting={allowDeleting}
+              queryKey={queryKey}
+            />
+          );
+        },
+      };
+
       // Menentukan kolom berdasarkan kondisi
       const conditionalColumns = [
         ...(allowMultipleSelect ? [selectColumn] : []),
         ...baseColumns,
         ...(rowDragnDrop ? [dragHandleColumn] : []),
+        ...(allowUpdating || allowDeleting ? [rowActionColumn] : []),
       ];
 
       return conditionalColumns;
@@ -202,7 +236,7 @@ export function TableComponent({
   const columns = useCreateColumns(
     columnsProp,
     rowDragnDrop,
-    allowMultipleSelect,
+    allowMultipleSelect
   );
 
   const [data, setData] = useState(dataProp);
@@ -210,6 +244,8 @@ export function TableComponent({
   const [columnFilters, setColumnFilters] = useState([]);
   const [columnVisibility, setColumnVisibility] = useState({});
   const [rowSelection, setRowSelection] = useState({});
+  const [openPopup, togglePopup] = useToggle();
+  const { mutate: postData } = useHttpRequest(queryKey, postApi, "POST");
 
   const commonProperties = {
     data,
@@ -254,7 +290,7 @@ export function TableComponent({
   };
 
   const table = useReactTable(
-    ssrPagination ? reactTableSsrConfig : reactTableCsrConfig,
+    ssrPagination ? reactTableSsrConfig : reactTableCsrConfig
   );
 
   function handleDragEnd(event) {
@@ -268,104 +304,127 @@ export function TableComponent({
     }
   }
 
+  const handlePopupData = (data) => {
+    postData(data);
+    togglePopup();
+  };
+
   const sensors = useSensors(
     useSensor(MouseSensor, {}),
     useSensor(TouchSensor, {}),
-    useSensor(KeyboardSensor, {}),
+    useSensor(KeyboardSensor, {})
   );
 
   const dataIds = useMemo(
     () => data?.map((item) => item[keyField]),
-    [data, keyField],
+    [data, keyField]
   );
 
   return (
-    <DndContext
-      collisionDetection={closestCenter}
-      modifiers={[restrictToVerticalAxis]}
-      onDragEnd={handleDragEnd}
-      sensors={sensors}
-      id={randomId}
-    >
-      <div className="w-full">
-        <div className="flex items-center justify-between py-4">
-          <DataTableToolbar
-            table={table}
-            searchBy={searchBy}
-            filterBy={filterBy}
-            leftToolbars={leftToolbars}
-          />
-          <div className="flex gap-2">
-            {visibleColumns && <DataTableViewOptions table={table} />}
-            {rightToolbars}
-          </div>
-        </div>
-        <div className="rounded-md border">
-          <Table scrollClassname={`${height} ${width} `}>
-            {/* <Table scrollClassname="h-[70vh] w-[82vw] whitespace-nowrap"> */}
-            <TableHeader>
-              {table.getHeaderGroups().map((headerGroup) => (
-                <TableRow key={headerGroup.id}>
-                  {headerGroup.headers.map((header) => {
-                    const pinClassname = getCommonPinningStyles(
-                      header.column,
-                      "header",
-                    );
-                    return (
-                      <TableHead
-                        key={header.id}
-                        className={pinClassname}
-                        colSpan={header.colSpan}
-                      >
-                        {header.isPlaceholder
-                          ? null
-                          : flexRender(
-                              header.column.columnDef.header,
-                              header.getContext(),
-                            )}
-                      </TableHead>
-                    );
-                  })}
-                </TableRow>
-              ))}
-            </TableHeader>
-            <TableBody>
-              {table.getRowModel().rows?.length ? (
-                table.getRowModel().rows.map((row) => (
-                  <SortableContext
-                    key={row.id}
-                    items={dataIds}
-                    strategy={verticalListSortingStrategy}
-                  >
-                    <DraggableRow key={row.id} row={row} />
-                  </SortableContext>
-                ))
-              ) : (
-                <TableRow>
-                  <TableCell
-                    colSpan={columns.length}
-                    className="h-24 text-center"
-                  >
-                    No results.
-                  </TableCell>
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </div>
-        <div className="flex items-center justify-end space-x-2 py-4">
-          <div className="flex-1 text-sm text-muted-foreground">
-            {table.getFilteredSelectedRowModel().rows.length} of{" "}
-            {table.getFilteredRowModel().rows.length} row(s) selected.
-          </div>
-          {pagination && (
-            <DataTablePagination
+    <>
+      <DndContext
+        collisionDetection={closestCenter}
+        modifiers={[restrictToVerticalAxis]}
+        onDragEnd={handleDragEnd}
+        sensors={sensors}
+        id={randomId}
+      >
+        <div className="w-full">
+          <div className="flex items-center justify-between py-4">
+            <DataTableToolbar
               table={table}
-              paginationOptions={paginationOptions}
+              searchBy={searchBy}
+              filterBy={filterBy}
+              leftToolbars={leftToolbars}
             />
-          )}
+            <div className="flex gap-2">
+              {visibleColumns && <DataTableViewOptions table={table} />}
+              {rightToolbars}
+              {allowAdding && (
+                <Button
+                  size="sm"
+                  className="ml-auto hidden h-8 lg:flex"
+                  onClick={togglePopup}
+                >
+                  <PlusIcon size={20} /> Add New
+                </Button>
+              )}
+            </div>
+          </div>
+          <div className="rounded-md border">
+            <Table scrollClassname={`${height} ${width} `}>
+              {/* <Table scrollClassname="h-[70vh] w-[82vw] whitespace-nowrap"> */}
+              <TableHeader>
+                {table.getHeaderGroups().map((headerGroup) => (
+                  <TableRow key={headerGroup.id}>
+                    {headerGroup.headers.map((header) => {
+                      const pinClassname = getCommonPinningStyles(
+                        header.column,
+                        "header"
+                      );
+                      return (
+                        <TableHead
+                          key={header.id}
+                          className={pinClassname}
+                          colSpan={header.colSpan}
+                        >
+                          {header.isPlaceholder
+                            ? null
+                            : flexRender(
+                                header.column.columnDef.header,
+                                header.getContext()
+                              )}
+                        </TableHead>
+                      );
+                    })}
+                  </TableRow>
+                ))}
+              </TableHeader>
+              <TableBody>
+                {table.getRowModel().rows?.length ? (
+                  table.getRowModel().rows.map((row) => (
+                    <SortableContext
+                      key={row.id}
+                      items={dataIds}
+                      strategy={verticalListSortingStrategy}
+                    >
+                      <DraggableRow key={row.id} row={row} />
+                    </SortableContext>
+                  ))
+                ) : (
+                  <TableRow>
+                    <TableCell
+                      colSpan={columns.length}
+                      className="h-24 text-center"
+                    >
+                      No results.
+                    </TableCell>
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </div>
+          <div className="flex items-center justify-end space-x-2 py-4">
+            <div className="flex-1 text-sm text-muted-foreground">
+              {table.getFilteredSelectedRowModel().rows.length} of{" "}
+              {table.getFilteredRowModel().rows.length} row(s) selected.
+            </div>
+            {pagination && (
+              <DataTablePagination
+                table={table}
+                paginationOptions={paginationOptions}
+              />
+            )}
+          </div>
         </div>
-      </div>
-    </DndContext>
+      </DndContext>
+      {openPopup && (
+        <PopupComponent
+          open={openPopup}
+          onOpenChange={togglePopup}
+          dataCallback={handlePopupData}
+        />
+      )}
+    </>
   );
 }
