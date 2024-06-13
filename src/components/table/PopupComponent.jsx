@@ -281,7 +281,7 @@ export default function PopupComponent({
         <DialogHeader>
           <DialogTitle>Form Data</DialogTitle>
           <DialogDescription>
-            Make changes to your data here. Click save when you're done.
+            Make changes to your data here. Click save when you&apos;re done.
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
