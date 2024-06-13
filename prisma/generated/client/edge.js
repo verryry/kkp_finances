@@ -31,12 +31,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 5.15.0
- * Query Engine version: 12e25d8d06f6ea5a0252864dd9a03b1bb51f3022
+ * Prisma Client JS version: 5.14.0
+ * Query Engine version: e9771e62de70f79a5e1c604a2d7c8e2a0a874b48
  */
 Prisma.prismaVersion = {
-  client: "5.15.0",
-  engine: "12e25d8d06f6ea5a0252864dd9a03b1bb51f3022"
+  client: "5.14.0",
+  engine: "e9771e62de70f79a5e1c604a2d7c8e2a0a874b48"
 }
 
 Prisma.PrismaClientKnownRequestError = PrismaClientKnownRequestError;
@@ -189,6 +189,11 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
+exports.Prisma.QueryMode = {
+  default: 'default',
+  insensitive: 'insensitive'
+};
+
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
@@ -236,13 +241,12 @@ const config = {
     "schemaEnvPath": "../../../.env"
   },
   "relativePath": "../..",
-  "clientVersion": "5.15.0",
-  "engineVersion": "12e25d8d06f6ea5a0252864dd9a03b1bb51f3022",
+  "clientVersion": "5.14.0",
+  "engineVersion": "e9771e62de70f79a5e1c604a2d7c8e2a0a874b48",
   "datasourceNames": [
     "db"
   ],
-  "activeProvider": "mysql",
-  "postinstall": true,
+  "activeProvider": "postgresql",
   "inlineDatasources": {
     "db": {
       "url": {
@@ -251,8 +255,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"./generated/client\"\n}\n\ndatasource db {\n  provider = \"mysql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id        Int      @id @default(autoincrement())\n  email     String   @unique\n  username  String   @unique\n  password  String\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n\nmodel Jabatan {\n  id                Int        @id @default(autoincrement())\n  nama_jabatan      String\n  tunjangan_jabatan Int\n  division          String?\n  status            Boolean    @default(false)\n  date              DateTime   @default(now())\n  createdAt         DateTime   @default(now())\n  updatedAt         DateTime   @updatedAt\n  Gaji              Gaji[]\n  Karyawan          Karyawan[]\n}\n\nmodel Lembur {\n  id          Int      @id @default(autoincrement())\n  karyawan    Karyawan @relation(fields: [id_karyawan], references: [id], onDelete: Cascade, onUpdate: Cascade)\n  id_karyawan Int\n  bulan       String?\n  tahun       String?\n  hari        Int\n  jumlah_jam  Int\n  createdAt   DateTime @default(now())\n  updatedAt   DateTime @updatedAt\n}\n\nmodel Karyawan {\n  id            Int        @id @default(autoincrement())\n  jabatan       Jabatan    @relation(fields: [id_jabatan], references: [id], onDelete: Cascade, onUpdate: Cascade)\n  id_jabatan    Int\n  nama_karyawan String\n  jenis_kelamin String\n  tgl_lahir     DateTime\n  alamat        String\n  agama         String\n  no_telp       Int\n  email         String\n  department    String\n  gaji_pokok    Int\n  createdAt     DateTime   @default(now())\n  updatedAt     DateTime   @updatedAt\n  Potongan      Potongan[]\n  Absensi       Absensi[]\n  Gaji          Gaji[]\n  Lembur        Lembur[]\n}\n\nmodel Potongan {\n  id          Int      @id @default(autoincrement())\n  karyawan    Karyawan @relation(fields: [id_karyawan], references: [id], onDelete: Cascade, onUpdate: Cascade)\n  id_karyawan Int\n  bulan       String\n  tahun       String\n  nominal     Int\n  keterangan  String\n  createdAt   DateTime @default(now())\n  updatedAt   DateTime @updatedAt\n}\n\nmodel Absensi {\n  id          Int       @id @default(autoincrement())\n  karyawan    Karyawan  @relation(fields: [id_karyawan], references: [id], onDelete: Cascade, onUpdate: Cascade)\n  id_karyawan Int\n  tgl         DateTime?\n  bulan       String?\n  tahun       String?\n  masuk       DateTime?\n  alfa        String?\n  sakit       String?\n  cuti        String?\n  shif        String?\n  createdAt   DateTime  @default(now())\n  updatedAt   DateTime  @updatedAt\n}\n\nmodel Gaji {\n  id                  Int      @id @default(autoincrement())\n  karyawan            Karyawan @relation(fields: [id_karyawan], references: [id], onDelete: Cascade, onUpdate: Cascade)\n  id_karyawan         Int\n  jabatan             Jabatan  @relation(fields: [id_jabatan], references: [id], onDelete: Cascade, onUpdate: Cascade)\n  id_jabatan          Int\n  department          String\n  bulan               String\n  tahun               String\n  gaji                Int\n  gaji_kotor          Int\n  gaji_bersih         Int\n  uang_lembur         Int\n  uang_shift          Int\n  bonus               Int\n  tunjangan           Int\n  tunjangan_ramadhan  Int\n  potongan_bpjs       Int\n  potongan_pph21      Int\n  potongan_no_working Int\n  potongan_lain       Int\n  keterangan          String\n  createdAt           DateTime @default(now())\n  updatedAt           DateTime @updatedAt\n}\n",
-  "inlineSchemaHash": "a85abc8d1f1e35772f431fc08300aad91901195fd55533d50d4e375310f24b8e",
+  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"./generated/client\"\n}\n\ndatasource db {\n  provider  = \"postgresql\"\n  url       = env(\"DATABASE_URL\")\n  directUrl = env(\"DIRECT_URL\")\n}\n\nmodel User {\n  id        Int      @id @default(autoincrement())\n  email     String   @unique\n  username  String   @unique\n  password  String\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n\nmodel Jabatan {\n  id                Int        @id @default(autoincrement())\n  nama_jabatan      String\n  tunjangan_jabatan Int\n  division          String?\n  status            Boolean    @default(false)\n  date              DateTime   @default(now())\n  createdAt         DateTime   @default(now())\n  updatedAt         DateTime   @updatedAt\n  Gaji              Gaji[]\n  Karyawan          Karyawan[]\n}\n\nmodel Lembur {\n  id          Int      @id @default(autoincrement())\n  karyawan    Karyawan @relation(fields: [id_karyawan], references: [id], onDelete: Cascade, onUpdate: Cascade)\n  id_karyawan Int\n  bulan       String?\n  tahun       String?\n  hari        Int\n  jumlah_jam  Int\n  createdAt   DateTime @default(now())\n  updatedAt   DateTime @updatedAt\n}\n\nmodel Karyawan {\n  id            Int        @id @default(autoincrement())\n  jabatan       Jabatan    @relation(fields: [id_jabatan], references: [id], onDelete: Cascade, onUpdate: Cascade)\n  id_jabatan    Int\n  nama_karyawan String\n  jenis_kelamin String\n  tgl_lahir     DateTime\n  alamat        String\n  agama         String\n  no_telp       Int\n  email         String\n  department    String\n  gaji_pokok    Int\n  createdAt     DateTime   @default(now())\n  updatedAt     DateTime   @updatedAt\n  Potongan      Potongan[]\n  Absensi       Absensi[]\n  Gaji          Gaji[]\n  Lembur        Lembur[]\n}\n\nmodel Potongan {\n  id          Int      @id @default(autoincrement())\n  karyawan    Karyawan @relation(fields: [id_karyawan], references: [id], onDelete: Cascade, onUpdate: Cascade)\n  id_karyawan Int\n  bulan       String\n  tahun       String\n  nominal     Int\n  keterangan  String\n  createdAt   DateTime @default(now())\n  updatedAt   DateTime @updatedAt\n}\n\nmodel Absensi {\n  id          Int       @id @default(autoincrement())\n  karyawan    Karyawan  @relation(fields: [id_karyawan], references: [id], onDelete: Cascade, onUpdate: Cascade)\n  id_karyawan Int\n  tgl         DateTime?\n  bulan       String?\n  tahun       String?\n  masuk       DateTime?\n  alfa        String?\n  sakit       String?\n  cuti        String?\n  shif        String?\n  createdAt   DateTime  @default(now())\n  updatedAt   DateTime  @updatedAt\n}\n\nmodel Gaji {\n  id                  Int      @id @default(autoincrement())\n  karyawan            Karyawan @relation(fields: [id_karyawan], references: [id], onDelete: Cascade, onUpdate: Cascade)\n  id_karyawan         Int\n  jabatan             Jabatan  @relation(fields: [id_jabatan], references: [id], onDelete: Cascade, onUpdate: Cascade)\n  id_jabatan          Int\n  department          String\n  bulan               String\n  tahun               String\n  gaji                Int\n  gaji_kotor          Int\n  gaji_bersih         Int\n  uang_lembur         Int\n  uang_shift          Int\n  bonus               Int\n  tunjangan           Int\n  tunjangan_ramadhan  Int\n  potongan_bpjs       Int\n  potongan_pph21      Int\n  potongan_no_working Int\n  potongan_lain       Int\n  keterangan          String\n  createdAt           DateTime @default(now())\n  updatedAt           DateTime @updatedAt\n}\n",
+  "inlineSchemaHash": "f57e5027b66278434c35bebb7b7fac7a7f79874e0ea2f5805c3c1578b9f732e3",
   "copyEngine": true
 }
 config.dirname = '/'
