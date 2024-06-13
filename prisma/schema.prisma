@@ -51,7 +51,7 @@ model Karyawan {
   tgl_lahir     DateTime
   alamat        String
   agama         String
-  no_telp       String
+  no_telp       Int
   email         String
   department    String
   gaji_pokok    Int

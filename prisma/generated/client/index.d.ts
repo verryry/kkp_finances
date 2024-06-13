@@ -297,8 +297,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 5.14.0
-   * Query Engine version: e9771e62de70f79a5e1c604a2d7c8e2a0a874b48
+   * Prisma Client JS version: 5.15.0
+   * Query Engine version: 12e25d8d06f6ea5a0252864dd9a03b1bb51f3022
    */
   export type PrismaVersion = {
     client: string
@@ -1671,6 +1671,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
 
+
   export type UserSelectScalar = {
     id?: boolean
     email?: boolean
@@ -1679,7 +1680,6 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
   }
-
 
 
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1695,7 +1695,6 @@ export namespace Prisma {
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
-
 
   type UserGetPayload<S extends boolean | null | undefined | UserDefaultArgs> = $Result.GetResult<Prisma.$UserPayload, S>
 
@@ -2596,6 +2595,7 @@ export namespace Prisma {
     _count?: boolean | JabatanCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["jabatan"]>
 
+
   export type JabatanSelectScalar = {
     id?: boolean
     nama_jabatan?: boolean
@@ -2607,13 +2607,11 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-
   export type JabatanInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     Gaji?: boolean | Jabatan$GajiArgs<ExtArgs>
     Karyawan?: boolean | Jabatan$KaryawanArgs<ExtArgs>
     _count?: boolean | JabatanCountOutputTypeDefaultArgs<ExtArgs>
   }
-
 
   export type $JabatanPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Jabatan"
@@ -2633,7 +2631,6 @@ export namespace Prisma {
     }, ExtArgs["result"]["jabatan"]>
     composites: {}
   }
-
 
   type JabatanGetPayload<S extends boolean | null | undefined | JabatanDefaultArgs> = $Result.GetResult<Prisma.$JabatanPayload, S>
 
@@ -3625,6 +3622,7 @@ export namespace Prisma {
     karyawan?: boolean | KaryawanDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["lembur"]>
 
+
   export type LemburSelectScalar = {
     id?: boolean
     id_karyawan?: boolean
@@ -3636,11 +3634,9 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-
   export type LemburInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     karyawan?: boolean | KaryawanDefaultArgs<ExtArgs>
   }
-
 
   export type $LemburPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Lembur"
@@ -3659,7 +3655,6 @@ export namespace Prisma {
     }, ExtArgs["result"]["lembur"]>
     composites: {}
   }
-
 
   type LemburGetPayload<S extends boolean | null | undefined | LemburDefaultArgs> = $Result.GetResult<Prisma.$LemburPayload, S>
 
@@ -4387,12 +4382,14 @@ export namespace Prisma {
   export type KaryawanAvgAggregateOutputType = {
     id: number | null
     id_jabatan: number | null
+    no_telp: number | null
     gaji_pokok: number | null
   }
 
   export type KaryawanSumAggregateOutputType = {
     id: number | null
     id_jabatan: number | null
+    no_telp: number | null
     gaji_pokok: number | null
   }
 
@@ -4404,7 +4401,7 @@ export namespace Prisma {
     tgl_lahir: Date | null
     alamat: string | null
     agama: string | null
-    no_telp: string | null
+    no_telp: number | null
     email: string | null
     department: string | null
     gaji_pokok: number | null
@@ -4420,7 +4417,7 @@ export namespace Prisma {
     tgl_lahir: Date | null
     alamat: string | null
     agama: string | null
-    no_telp: string | null
+    no_telp: number | null
     email: string | null
     department: string | null
     gaji_pokok: number | null
@@ -4449,12 +4446,14 @@ export namespace Prisma {
   export type KaryawanAvgAggregateInputType = {
     id?: true
     id_jabatan?: true
+    no_telp?: true
     gaji_pokok?: true
   }
 
   export type KaryawanSumAggregateInputType = {
     id?: true
     id_jabatan?: true
+    no_telp?: true
     gaji_pokok?: true
   }
 
@@ -4601,7 +4600,7 @@ export namespace Prisma {
     tgl_lahir: Date
     alamat: string
     agama: string
-    no_telp: string
+    no_telp: number
     email: string
     department: string
     gaji_pokok: number
@@ -4650,6 +4649,7 @@ export namespace Prisma {
     _count?: boolean | KaryawanCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["karyawan"]>
 
+
   export type KaryawanSelectScalar = {
     id?: boolean
     id_jabatan?: boolean
@@ -4666,7 +4666,6 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-
   export type KaryawanInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     jabatan?: boolean | JabatanDefaultArgs<ExtArgs>
     Potongan?: boolean | Karyawan$PotonganArgs<ExtArgs>
@@ -4675,7 +4674,6 @@ export namespace Prisma {
     Lembur?: boolean | Karyawan$LemburArgs<ExtArgs>
     _count?: boolean | KaryawanCountOutputTypeDefaultArgs<ExtArgs>
   }
-
 
   export type $KaryawanPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Karyawan"
@@ -4694,7 +4692,7 @@ export namespace Prisma {
       tgl_lahir: Date
       alamat: string
       agama: string
-      no_telp: string
+      no_telp: number
       email: string
       department: string
       gaji_pokok: number
@@ -4703,7 +4701,6 @@ export namespace Prisma {
     }, ExtArgs["result"]["karyawan"]>
     composites: {}
   }
-
 
   type KaryawanGetPayload<S extends boolean | null | undefined | KaryawanDefaultArgs> = $Result.GetResult<Prisma.$KaryawanPayload, S>
 
@@ -5110,7 +5107,7 @@ export namespace Prisma {
     readonly tgl_lahir: FieldRef<"Karyawan", 'DateTime'>
     readonly alamat: FieldRef<"Karyawan", 'String'>
     readonly agama: FieldRef<"Karyawan", 'String'>
-    readonly no_telp: FieldRef<"Karyawan", 'String'>
+    readonly no_telp: FieldRef<"Karyawan", 'Int'>
     readonly email: FieldRef<"Karyawan", 'String'>
     readonly department: FieldRef<"Karyawan", 'String'>
     readonly gaji_pokok: FieldRef<"Karyawan", 'Int'>
@@ -5742,6 +5739,7 @@ export namespace Prisma {
     karyawan?: boolean | KaryawanDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["potongan"]>
 
+
   export type PotonganSelectScalar = {
     id?: boolean
     id_karyawan?: boolean
@@ -5753,11 +5751,9 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-
   export type PotonganInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     karyawan?: boolean | KaryawanDefaultArgs<ExtArgs>
   }
-
 
   export type $PotonganPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Potongan"
@@ -5776,7 +5772,6 @@ export namespace Prisma {
     }, ExtArgs["result"]["potongan"]>
     composites: {}
   }
-
 
   type PotonganGetPayload<S extends boolean | null | undefined | PotonganDefaultArgs> = $Result.GetResult<Prisma.$PotonganPayload, S>
 
@@ -6750,6 +6745,7 @@ export namespace Prisma {
     karyawan?: boolean | KaryawanDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["absensi"]>
 
+
   export type AbsensiSelectScalar = {
     id?: boolean
     id_karyawan?: boolean
@@ -6765,11 +6761,9 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-
   export type AbsensiInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     karyawan?: boolean | KaryawanDefaultArgs<ExtArgs>
   }
-
 
   export type $AbsensiPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Absensi"
@@ -6792,7 +6786,6 @@ export namespace Prisma {
     }, ExtArgs["result"]["absensi"]>
     composites: {}
   }
-
 
   type AbsensiGetPayload<S extends boolean | null | undefined | AbsensiDefaultArgs> = $Result.GetResult<Prisma.$AbsensiPayload, S>
 
@@ -7895,6 +7888,7 @@ export namespace Prisma {
     jabatan?: boolean | JabatanDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["gaji"]>
 
+
   export type GajiSelectScalar = {
     id?: boolean
     id_karyawan?: boolean
@@ -7919,12 +7913,10 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-
   export type GajiInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     karyawan?: boolean | KaryawanDefaultArgs<ExtArgs>
     jabatan?: boolean | JabatanDefaultArgs<ExtArgs>
   }
-
 
   export type $GajiPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Gaji"
@@ -7957,7 +7949,6 @@ export namespace Prisma {
     }, ExtArgs["result"]["gaji"]>
     composites: {}
   }
-
 
   type GajiGetPayload<S extends boolean | null | undefined | GajiDefaultArgs> = $Result.GetResult<Prisma.$GajiPayload, S>
 
@@ -9093,7 +9084,7 @@ export namespace Prisma {
     tgl_lahir?: DateTimeFilter<"Karyawan"> | Date | string
     alamat?: StringFilter<"Karyawan"> | string
     agama?: StringFilter<"Karyawan"> | string
-    no_telp?: StringFilter<"Karyawan"> | string
+    no_telp?: IntFilter<"Karyawan"> | number
     email?: StringFilter<"Karyawan"> | string
     department?: StringFilter<"Karyawan"> | string
     gaji_pokok?: IntFilter<"Karyawan"> | number
@@ -9138,7 +9129,7 @@ export namespace Prisma {
     tgl_lahir?: DateTimeFilter<"Karyawan"> | Date | string
     alamat?: StringFilter<"Karyawan"> | string
     agama?: StringFilter<"Karyawan"> | string
-    no_telp?: StringFilter<"Karyawan"> | string
+    no_telp?: IntFilter<"Karyawan"> | number
     email?: StringFilter<"Karyawan"> | string
     department?: StringFilter<"Karyawan"> | string
     gaji_pokok?: IntFilter<"Karyawan"> | number
@@ -9183,7 +9174,7 @@ export namespace Prisma {
     tgl_lahir?: DateTimeWithAggregatesFilter<"Karyawan"> | Date | string
     alamat?: StringWithAggregatesFilter<"Karyawan"> | string
     agama?: StringWithAggregatesFilter<"Karyawan"> | string
-    no_telp?: StringWithAggregatesFilter<"Karyawan"> | string
+    no_telp?: IntWithAggregatesFilter<"Karyawan"> | number
     email?: StringWithAggregatesFilter<"Karyawan"> | string
     department?: StringWithAggregatesFilter<"Karyawan"> | string
     gaji_pokok?: IntWithAggregatesFilter<"Karyawan"> | number
@@ -9716,7 +9707,7 @@ export namespace Prisma {
     tgl_lahir: Date | string
     alamat: string
     agama: string
-    no_telp: string
+    no_telp: number
     email: string
     department: string
     gaji_pokok: number
@@ -9737,7 +9728,7 @@ export namespace Prisma {
     tgl_lahir: Date | string
     alamat: string
     agama: string
-    no_telp: string
+    no_telp: number
     email: string
     department: string
     gaji_pokok: number
@@ -9755,7 +9746,7 @@ export namespace Prisma {
     tgl_lahir?: DateTimeFieldUpdateOperationsInput | Date | string
     alamat?: StringFieldUpdateOperationsInput | string
     agama?: StringFieldUpdateOperationsInput | string
-    no_telp?: StringFieldUpdateOperationsInput | string
+    no_telp?: IntFieldUpdateOperationsInput | number
     email?: StringFieldUpdateOperationsInput | string
     department?: StringFieldUpdateOperationsInput | string
     gaji_pokok?: IntFieldUpdateOperationsInput | number
@@ -9776,7 +9767,7 @@ export namespace Prisma {
     tgl_lahir?: DateTimeFieldUpdateOperationsInput | Date | string
     alamat?: StringFieldUpdateOperationsInput | string
     agama?: StringFieldUpdateOperationsInput | string
-    no_telp?: StringFieldUpdateOperationsInput | string
+    no_telp?: IntFieldUpdateOperationsInput | number
     email?: StringFieldUpdateOperationsInput | string
     department?: StringFieldUpdateOperationsInput | string
     gaji_pokok?: IntFieldUpdateOperationsInput | number
@@ -9796,7 +9787,7 @@ export namespace Prisma {
     tgl_lahir: Date | string
     alamat: string
     agama: string
-    no_telp: string
+    no_telp: number
     email: string
     department: string
     gaji_pokok: number
@@ -9810,7 +9801,7 @@ export namespace Prisma {
     tgl_lahir?: DateTimeFieldUpdateOperationsInput | Date | string
     alamat?: StringFieldUpdateOperationsInput | string
     agama?: StringFieldUpdateOperationsInput | string
-    no_telp?: StringFieldUpdateOperationsInput | string
+    no_telp?: IntFieldUpdateOperationsInput | number
     email?: StringFieldUpdateOperationsInput | string
     department?: StringFieldUpdateOperationsInput | string
     gaji_pokok?: IntFieldUpdateOperationsInput | number
@@ -9826,7 +9817,7 @@ export namespace Prisma {
     tgl_lahir?: DateTimeFieldUpdateOperationsInput | Date | string
     alamat?: StringFieldUpdateOperationsInput | string
     agama?: StringFieldUpdateOperationsInput | string
-    no_telp?: StringFieldUpdateOperationsInput | string
+    no_telp?: IntFieldUpdateOperationsInput | number
     email?: StringFieldUpdateOperationsInput | string
     department?: StringFieldUpdateOperationsInput | string
     gaji_pokok?: IntFieldUpdateOperationsInput | number
@@ -10507,6 +10498,7 @@ export namespace Prisma {
   export type KaryawanAvgOrderByAggregateInput = {
     id?: SortOrder
     id_jabatan?: SortOrder
+    no_telp?: SortOrder
     gaji_pokok?: SortOrder
   }
 
@@ -10545,6 +10537,7 @@ export namespace Prisma {
   export type KaryawanSumOrderByAggregateInput = {
     id?: SortOrder
     id_jabatan?: SortOrder
+    no_telp?: SortOrder
     gaji_pokok?: SortOrder
   }
 
@@ -11380,7 +11373,7 @@ export namespace Prisma {
     tgl_lahir: Date | string
     alamat: string
     agama: string
-    no_telp: string
+    no_telp: number
     email: string
     department: string
     gaji_pokok: number
@@ -11399,7 +11392,7 @@ export namespace Prisma {
     tgl_lahir: Date | string
     alamat: string
     agama: string
-    no_telp: string
+    no_telp: number
     email: string
     department: string
     gaji_pokok: number
@@ -11491,7 +11484,7 @@ export namespace Prisma {
     tgl_lahir?: DateTimeFilter<"Karyawan"> | Date | string
     alamat?: StringFilter<"Karyawan"> | string
     agama?: StringFilter<"Karyawan"> | string
-    no_telp?: StringFilter<"Karyawan"> | string
+    no_telp?: IntFilter<"Karyawan"> | number
     email?: StringFilter<"Karyawan"> | string
     department?: StringFilter<"Karyawan"> | string
     gaji_pokok?: IntFilter<"Karyawan"> | number
@@ -11505,7 +11498,7 @@ export namespace Prisma {
     tgl_lahir: Date | string
     alamat: string
     agama: string
-    no_telp: string
+    no_telp: number
     email: string
     department: string
     gaji_pokok: number
@@ -11525,7 +11518,7 @@ export namespace Prisma {
     tgl_lahir: Date | string
     alamat: string
     agama: string
-    no_telp: string
+    no_telp: number
     email: string
     department: string
     gaji_pokok: number
@@ -11558,7 +11551,7 @@ export namespace Prisma {
     tgl_lahir?: DateTimeFieldUpdateOperationsInput | Date | string
     alamat?: StringFieldUpdateOperationsInput | string
     agama?: StringFieldUpdateOperationsInput | string
-    no_telp?: StringFieldUpdateOperationsInput | string
+    no_telp?: IntFieldUpdateOperationsInput | number
     email?: StringFieldUpdateOperationsInput | string
     department?: StringFieldUpdateOperationsInput | string
     gaji_pokok?: IntFieldUpdateOperationsInput | number
@@ -11578,7 +11571,7 @@ export namespace Prisma {
     tgl_lahir?: DateTimeFieldUpdateOperationsInput | Date | string
     alamat?: StringFieldUpdateOperationsInput | string
     agama?: StringFieldUpdateOperationsInput | string
-    no_telp?: StringFieldUpdateOperationsInput | string
+    no_telp?: IntFieldUpdateOperationsInput | number
     email?: StringFieldUpdateOperationsInput | string
     department?: StringFieldUpdateOperationsInput | string
     gaji_pokok?: IntFieldUpdateOperationsInput | number
@@ -11917,7 +11910,7 @@ export namespace Prisma {
     tgl_lahir: Date | string
     alamat: string
     agama: string
-    no_telp: string
+    no_telp: number
     email: string
     department: string
     gaji_pokok: number
@@ -11937,7 +11930,7 @@ export namespace Prisma {
     tgl_lahir: Date | string
     alamat: string
     agama: string
-    no_telp: string
+    no_telp: number
     email: string
     department: string
     gaji_pokok: number
@@ -11970,7 +11963,7 @@ export namespace Prisma {
     tgl_lahir?: DateTimeFieldUpdateOperationsInput | Date | string
     alamat?: StringFieldUpdateOperationsInput | string
     agama?: StringFieldUpdateOperationsInput | string
-    no_telp?: StringFieldUpdateOperationsInput | string
+    no_telp?: IntFieldUpdateOperationsInput | number
     email?: StringFieldUpdateOperationsInput | string
     department?: StringFieldUpdateOperationsInput | string
     gaji_pokok?: IntFieldUpdateOperationsInput | number
@@ -11990,7 +11983,7 @@ export namespace Prisma {
     tgl_lahir?: DateTimeFieldUpdateOperationsInput | Date | string
     alamat?: StringFieldUpdateOperationsInput | string
     agama?: StringFieldUpdateOperationsInput | string
-    no_telp?: StringFieldUpdateOperationsInput | string
+    no_telp?: IntFieldUpdateOperationsInput | number
     email?: StringFieldUpdateOperationsInput | string
     department?: StringFieldUpdateOperationsInput | string
     gaji_pokok?: IntFieldUpdateOperationsInput | number
@@ -12007,7 +12000,7 @@ export namespace Prisma {
     tgl_lahir: Date | string
     alamat: string
     agama: string
-    no_telp: string
+    no_telp: number
     email: string
     department: string
     gaji_pokok: number
@@ -12027,7 +12020,7 @@ export namespace Prisma {
     tgl_lahir: Date | string
     alamat: string
     agama: string
-    no_telp: string
+    no_telp: number
     email: string
     department: string
     gaji_pokok: number
@@ -12060,7 +12053,7 @@ export namespace Prisma {
     tgl_lahir?: DateTimeFieldUpdateOperationsInput | Date | string
     alamat?: StringFieldUpdateOperationsInput | string
     agama?: StringFieldUpdateOperationsInput | string
-    no_telp?: StringFieldUpdateOperationsInput | string
+    no_telp?: IntFieldUpdateOperationsInput | number
     email?: StringFieldUpdateOperationsInput | string
     department?: StringFieldUpdateOperationsInput | string
     gaji_pokok?: IntFieldUpdateOperationsInput | number
@@ -12080,7 +12073,7 @@ export namespace Prisma {
     tgl_lahir?: DateTimeFieldUpdateOperationsInput | Date | string
     alamat?: StringFieldUpdateOperationsInput | string
     agama?: StringFieldUpdateOperationsInput | string
-    no_telp?: StringFieldUpdateOperationsInput | string
+    no_telp?: IntFieldUpdateOperationsInput | number
     email?: StringFieldUpdateOperationsInput | string
     department?: StringFieldUpdateOperationsInput | string
     gaji_pokok?: IntFieldUpdateOperationsInput | number
@@ -12097,7 +12090,7 @@ export namespace Prisma {
     tgl_lahir: Date | string
     alamat: string
     agama: string
-    no_telp: string
+    no_telp: number
     email: string
     department: string
     gaji_pokok: number
@@ -12117,7 +12110,7 @@ export namespace Prisma {
     tgl_lahir: Date | string
     alamat: string
     agama: string
-    no_telp: string
+    no_telp: number
     email: string
     department: string
     gaji_pokok: number
@@ -12178,7 +12171,7 @@ export namespace Prisma {
     tgl_lahir?: DateTimeFieldUpdateOperationsInput | Date | string
     alamat?: StringFieldUpdateOperationsInput | string
     agama?: StringFieldUpdateOperationsInput | string
-    no_telp?: StringFieldUpdateOperationsInput | string
+    no_telp?: IntFieldUpdateOperationsInput | number
     email?: StringFieldUpdateOperationsInput | string
     department?: StringFieldUpdateOperationsInput | string
     gaji_pokok?: IntFieldUpdateOperationsInput | number
@@ -12198,7 +12191,7 @@ export namespace Prisma {
     tgl_lahir?: DateTimeFieldUpdateOperationsInput | Date | string
     alamat?: StringFieldUpdateOperationsInput | string
     agama?: StringFieldUpdateOperationsInput | string
-    no_telp?: StringFieldUpdateOperationsInput | string
+    no_telp?: IntFieldUpdateOperationsInput | number
     email?: StringFieldUpdateOperationsInput | string
     department?: StringFieldUpdateOperationsInput | string
     gaji_pokok?: IntFieldUpdateOperationsInput | number
@@ -12273,7 +12266,7 @@ export namespace Prisma {
     tgl_lahir: Date | string
     alamat: string
     agama: string
-    no_telp: string
+    no_telp: number
     email: string
     department: string
     gaji_pokok: number
@@ -12355,7 +12348,7 @@ export namespace Prisma {
     tgl_lahir?: DateTimeFieldUpdateOperationsInput | Date | string
     alamat?: StringFieldUpdateOperationsInput | string
     agama?: StringFieldUpdateOperationsInput | string
-    no_telp?: StringFieldUpdateOperationsInput | string
+    no_telp?: IntFieldUpdateOperationsInput | number
     email?: StringFieldUpdateOperationsInput | string
     department?: StringFieldUpdateOperationsInput | string
     gaji_pokok?: IntFieldUpdateOperationsInput | number
@@ -12374,7 +12367,7 @@ export namespace Prisma {
     tgl_lahir?: DateTimeFieldUpdateOperationsInput | Date | string
     alamat?: StringFieldUpdateOperationsInput | string
     agama?: StringFieldUpdateOperationsInput | string
-    no_telp?: StringFieldUpdateOperationsInput | string
+    no_telp?: IntFieldUpdateOperationsInput | number
     email?: StringFieldUpdateOperationsInput | string
     department?: StringFieldUpdateOperationsInput | string
     gaji_pokok?: IntFieldUpdateOperationsInput | number
@@ -12393,7 +12386,7 @@ export namespace Prisma {
     tgl_lahir?: DateTimeFieldUpdateOperationsInput | Date | string
     alamat?: StringFieldUpdateOperationsInput | string
     agama?: StringFieldUpdateOperationsInput | string
-    no_telp?: StringFieldUpdateOperationsInput | string
+    no_telp?: IntFieldUpdateOperationsInput | number
     email?: StringFieldUpdateOperationsInput | string
     department?: StringFieldUpdateOperationsInput | string
     gaji_pokok?: IntFieldUpdateOperationsInput | number

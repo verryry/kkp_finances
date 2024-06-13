@@ -13,7 +13,7 @@ export default async function handler(req, res) {
     try {
       const body = await req.body;
 
-      const newUser = servicePostData("karyawan", body);
+      const newUser = servicePostData("lembur", body);
 
       return res.status(200).json({ message: "User created", data: body });
     } catch (error) {
@@ -24,7 +24,7 @@ export default async function handler(req, res) {
   if (req.method === "GET") {
     if (param) {
       const data = await serviceGetDataByColumns(
-        "karyawan",
+        "lembur",
         "id",
         parseInt(param[0])
       );
@@ -35,14 +35,14 @@ export default async function handler(req, res) {
       return res.status(404).json({ error: "User not found" });
     }
 
-    const data = await serviceGetAllData("karyawan");
+    const data = await serviceGetAllData("lembur");
     return res.status(200).json(data);
   }
 
   if (req.method === "PUT") {
     if (param) {
       const data = await serviceGetDataByColumns(
-        "karyawan",
+        "lembur",
         "id",
         parseInt(param[0])
       );
@@ -50,34 +50,34 @@ export default async function handler(req, res) {
         const body = await req.body;
 
         const data = await serviceUpdateData(
-          "karyawan",
+          "lembur",
           "id",
           parseInt(param[0]),
           body
         );
         return res.status(200).json(data);
       }
-      return res.status(404).json({ error: "karyawan not found" });
+      return res.status(404).json({ error: "lembur not found" });
     }
   }
 
   if (req.method === "DELETE") {
     if (param) {
       const data = await serviceGetDataByColumns(
-        "karyawan",
+        "lembur",
         "id",
         parseInt(param[0])
       );
 
       if (data) {
         const data = await serviceDeleteData(
-          "karyawan",
+          "lembur",
           "id",
           parseInt(param[0])
         );
         return res.status(200).json(data);
       }
-      return res.status(404).json({ error: "karyawan not found" });
+      return res.status(404).json({ error: "lembur not found" });
     }
   }
 }

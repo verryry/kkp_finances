@@ -82,9 +82,19 @@ export default function PopupComponent({
           invalid_type_error: "That's not a date!",
         });
       case "select":
-        return z.coerce
-          .string()
-          .min(1, { message: `${column.header} is required` });
+        return z.union([
+          z
+            .string()
+            .min(1, { message: `${column.header} is required` })
+            .transform((value) => {
+              const numberValue = Number(value);
+              return isNaN(numberValue) ? value : numberValue;
+            }),
+          z.coerce.number({
+            required_error: `${column.header} is required`,
+            invalid_type_error: `${column.header} must be a number`,
+          }),
+        ]);
       default:
         return z.coerce
           .string()
@@ -111,7 +121,18 @@ export default function PopupComponent({
       case "date":
         return z.coerce.date({ message: "Invalid date string!" }).optional();
       case "select":
-        return z.coerce.string().optional();
+        return z
+          .union([
+            z.string().transform((value) => {
+              const numberValue = Number(value);
+              return isNaN(numberValue) ? value : numberValue;
+            }),
+            z.coerce.number({
+              required_error: `${column.header} is required`,
+              invalid_type_error: `${column.header} must be a number`,
+            }),
+          ])
+          .optional();
       default:
         return z.coerce.string().optional();
     }
@@ -236,19 +257,14 @@ export default function PopupComponent({
                 </SelectTrigger>
               </FormControl>
               <SelectContent>
-                {column.lookup?.dataSource.map(
-                  (option) => (
-                    console.log(option),
-                    (
-                      <SelectItem
-                        key={option.value}
-                        value={option[column.lookup?.valueExpr]}
-                      >
-                        {option[column.lookup?.displayExpr]}
-                      </SelectItem>
-                    )
-                  )
-                )}
+                {column.lookup?.dataSource.map((option) => (
+                  <SelectItem
+                    key={option.value}
+                    value={option[column.lookup?.valueExpr].toString()}
+                  >
+                    {option[column.lookup?.displayExpr]}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
             <FormMessage />
