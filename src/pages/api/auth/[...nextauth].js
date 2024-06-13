@@ -37,7 +37,7 @@ export const authOptions = {
       },
     }),
   ],
-
+  secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     jwt: async ({ token, account, profile, user }) => {
       if (account?.provider === "credentials") {
